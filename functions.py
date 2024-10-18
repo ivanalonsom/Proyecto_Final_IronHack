@@ -12,6 +12,7 @@ def get_column_charge(df):
     df["is_same_charge"] = df["Q1"] == df["Q2"]
     return df
 
+
 def mark_outliers(df):
     import pandas as pd
 
