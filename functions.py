@@ -45,3 +45,35 @@ def main_cleaning(df):
     get_column_charge(df)
     mark_outliers(df)
     return df
+
+
+def import_to_sql(df, name):
+
+    """
+    This function imports the DataFrame of video game deals to a SQL database.
+    
+    Parameters:
+        df (DataFrame): The DataFrame containing the video game deal data.
+        name (str): The name of the database to be created or used.
+
+    """
+
+    import pandas as pd
+    from sqlalchemy import create_engine, text
+    import pymysql
+    import os
+    from dotenv import load_dotenv
+
+    bbdd_name = os.getenv("bbdd_name")
+    passBD = os.getenv("passBD")
+
+    # Tus parámetros de conexión
+    bd = bbdd_name
+    password = passBD 
+
+    connection_string = 'mysql+pymysql://root:' + password + '@localhost/' + bd
+    engine = create_engine(connection_string)
+
+    # Enviar DataFrame a MySQL
+
+    df.to_sql(name, con=engine, if_exists='append', index=False)
