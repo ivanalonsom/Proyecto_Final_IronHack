@@ -95,6 +95,6 @@ def make_query(query):
     connection_string = f'mysql+pymysql://root:{passBD}@localhost/{bbdd_name}'
     engine = create_engine(connection_string)
 
-    id_part_df = pd.read_sql(query, engine)
+    query_result = pd.read_sql(query, engine)
 
-    return id_part_df
+    return query_result

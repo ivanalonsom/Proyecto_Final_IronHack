@@ -1,0 +1,22 @@
+XGBOOST (solo pz):
+
+grid = {
+    'n_estimators': [100, 200, 300, 400, 500],            # Número de árboles
+    'max_depth': [3, 5, 7, 9, 11],                        # Profundidad máxima de los árboles
+    'learning_rate': [0.01, 0.05, 0.1, 0.2, 0.3],        # Tasa de aprendizaje
+    'subsample': [0.6, 0.8, 1.0],                         # Proporción de muestras utilizadas para entrenar
+    'colsample_bytree': [0.6, 0.8, 1.0],                 # Proporción de características utilizadas para entrenar
+    'gamma': [0, 0.1, 0.2, 0.3],                          # Reducción de pérdida requerida para hacer una partición adicional
+    'reg_alpha': [0, 0.1, 1, 10],                         # Regularización L1
+    'reg_lambda': [0, 0.1, 1, 10]                        # Regularización L2
+}
+
+
+test -> (9.099540307728594, 14.888339451010413, 0.652237797868445)
+target -> (8.710472546013643, 14.254297322380038, 0.6814561934613017)
+cross val -> Cross-validated R2 scores: [0.65905583 0.65413994 0.64444679 0.64712044 0.63697352]
+Mean cross-validated R2: 0.6483473040652855
+
+
+RF (solo pz)
+
