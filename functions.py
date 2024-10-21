@@ -77,3 +77,24 @@ def import_to_sql(df, name):
     # Enviar DataFrame a MySQL
 
     df.to_sql(name, con=engine, if_exists='append', index=False)
+
+
+def make_query(query):
+    import pandas as pd
+    from sqlalchemy import create_engine
+    import os
+    from dotenv import load_dotenv
+
+    # Cargar las variables de entorno
+    load_dotenv()
+
+    bbdd_name = os.getenv("bbdd_name")
+    passBD = os.getenv("passBD")
+
+    # Crear la cadena de conexión
+    connection_string = f'mysql+pymysql://root:{passBD}@localhost/{bbdd_name}'
+    engine = create_engine(connection_string)
+
+    id_part_df = pd.read_sql(query, engine)
+
+    return id_part_df
