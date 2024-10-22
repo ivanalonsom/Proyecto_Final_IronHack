@@ -242,7 +242,7 @@ def data_science():
 
 
         if st.button("Show/Hide Random Forest Hyper-Parameters"):
-            st.session_state.show_rf_hyper = not st.session_state.show_rf_hyper  # Cambiar el estado
+            st.session_state.show_rf_hyper = not st.session_state.show_rf_hyper  
 
 
         if st.session_state.show_rf_hyper:
@@ -270,7 +270,7 @@ def data_science():
 
 
         if st.button("Show/Hide XGBoost Hyper-Parameters"):
-            st.session_state.show_xgboost_hyper = not st.session_state.show_xgboost_hyper  # Cambiar el estado
+            st.session_state.show_xgboost_hyper = not st.session_state.show_xgboost_hyper  
 
 
         if st.session_state.show_xgboost_hyper:
@@ -337,8 +337,6 @@ def data_science():
 #     st.image("data/real_v_pred.jpg", use_column_width=True)
 
     
-
-
 
 
 st.sidebar.title("Navegation")
