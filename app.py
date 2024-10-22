@@ -7,7 +7,7 @@ def intro():
     # st.image("data/demo_heath_map.png", use_column_width=True)
 
     st.markdown("<style>h1 {text-align: justify;}</style>", unsafe_allow_html=True)
-    st.title("Final Project - What if we could predict the invariant mass of a two particle collision just with it´s one dimensional vector?") 
+    st.title("Final Project - Predicting the Invariant Mass of Two-Particle Collisions Using One-Dimensional Vector Analysis") 
 
     st.markdown("""<p style='font-size: 18px; text-align: justify'>
                 This project involves a comprehensive data analysis to examine how the various components of a particle influence each other during a collision with another particle. 
@@ -17,16 +17,17 @@ def intro():
         """, unsafe_allow_html=True)
     
     
-    st.markdown("<h3 style='color:gray; font-size: 18px'>Below is an example of the original dataframes, prior to the treatment performed.</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color:gray; font-size: 18px'>Below is an example of the data taken from the CERN.</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color:gray; font-size: 14px'>European Council for Nuclear Research. </h3>", unsafe_allow_html=True)
         
     if 'show_df' not in st.session_state:
         st.session_state.show_df = True
 
-    # if st.session_state.show_df:
-    #     df_no_treatment_demo = pd.read_csv('data/df_merged_national.csv')
+    if st.session_state.show_df:
+        df_no_treatment_demo = pd.read_csv('data/dielectron_cleaned.csv')
 
-    #     st.write(df_no_treatment_demo)
-    #     st.markdown("<p style='color:gray; font-size: 12px; text-align: right'>Data obtained from INE.</h3>", unsafe_allow_html=True)
+        st.write(df_no_treatment_demo)
+        st.markdown("<p style='color:gray; font-size: 12px; text-align: right'>https://opendata.cern.ch/record/304.</h3>", unsafe_allow_html=True)
 
 
 def deep_learning():
