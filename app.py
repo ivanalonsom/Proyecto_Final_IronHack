@@ -7,13 +7,13 @@ def intro():
     # st.image("data/demo_heath_map.png", use_column_width=True)
 
     st.markdown("<style>h1 {text-align: justify;}</style>", unsafe_allow_html=True)
-    st.title("Project 6 - What if COVID-19 would never exist? An insight to how crimes in Spain would have developed in 2020 and 2021") 
+    st.title("Final Project - What if we could predict the invariant mass of a two particle collision just with it´s one dimensional vector?") 
 
     st.markdown("""<p style='font-size: 18px; text-align: justify'>
-                 This project is a predictive analysis of crime statistics in Spain, focusing on how crime trends across different autonomous communities might have continued if 
-                the COVID-19 pandemic had not occurred. Specifically, the model aims to estimate crime levels in 2022 by following the trend observed from 2010, disregarding the 
-                drastic decrease in crime that occurred due to the lockdowns and other restrictions during the pandemic. The analysis leverages data cleaning, transformation, 
-                **deep learning**, and visualization techniques to provide insights into these hypothetical crime trends.</p>
+                This project involves a comprehensive data analysis to examine how the various components of a particle influence each other during a collision with another particle. 
+                By employing both machine learning and deep learning techniques, we aim to predict the invariant mass of the resulting system. This study not only enhances our 
+                understanding of the dynamics involved in particle collisions but also seeks to develop accurate predictive models with significant applications 
+                in the field of particle physics.</p>
         """, unsafe_allow_html=True)
     
     
@@ -92,7 +92,6 @@ st.sidebar.markdown("<br>" * 20, unsafe_allow_html=True)
 st.sidebar.markdown("""  
                 ## This project has been developed by:
                 Iván Alonso - https://github.com/ivanalonsom  
-                Luis Rodríguez - https://github.com/LuisHRF
                 """)
 
 if page == "Introduction":
