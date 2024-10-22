@@ -7,7 +7,7 @@ def intro():
     st.image("pictures/EjeZ.png", use_column_width=True)
 
     st.markdown("<style>h1 {text-align: justify;}</style>", unsafe_allow_html=True)
-    st.title("Final Project - Predicting the Invariant Mass of Two-Particle Collisions Using One-Dimensional Vector Analysis") 
+    st.title("Two-Particle System: Analysis and Prediction of the Invariant Mass Based on Automated Learning") 
 
     st.markdown("""<p style='font-size: 18px; text-align: justify'>
                 This project involves a comprehensive data analysis to examine how the various components of a particle influence each other during a collision with another particle. 
@@ -123,7 +123,7 @@ def data_science():
     st.markdown("""
     ## Introduction to Our Data Science Approach
     <p style='font-size: 16px; text-align: justify'>
-    In the initial phase of our project, we aimed to predict the invariant mass (M) of two colliding particles based on several parameters, specifically the total energy \( E \), 
+    In the initial phase of our project, we aimed to predict the invariant mass (M) of two colliding particles based on several parameters, specifically the total energy (E), 
     as well as the momentum components (p_x), (p_y), and (p_z).  
     However, upon further investigation, we discovered that there are existing equations capable of calculating the theoretical value of (M) with greater accuracy than any prediction model.  
     <p style='font-size: 16px; text-align: justify'>
@@ -208,7 +208,8 @@ def data_science():
 
 st.sidebar.title("Navegation")
 page = st.sidebar.selectbox("Select a page", ["Introduction", "Data Analysis", "Data Science", "Insights and conclusions"]) 
-st.sidebar.markdown("<br>" * 20, unsafe_allow_html=True)
+st.sidebar.markdown("<br>" * 16, unsafe_allow_html=True)
+st.sidebar.markdown("IronHack Final Project")
 st.sidebar.markdown("""  
                 ## This project has been developed by:
                 Iván Alonso - https://github.com/ivanalonsom  
