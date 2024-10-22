@@ -33,6 +33,11 @@ def intro():
         st.markdown("<p style='color:gray; font-size: 12px; text-align: right'>https://opendata.cern.ch/record/304.</h3>", unsafe_allow_html=True)
 
 
+    st.write("The data is stored in a DataBase (MySQL) we have created")
+    st.image("Database/Relational.png")
+
+
+
 def data_analysis():
     st.title("Data Analysis")
 
