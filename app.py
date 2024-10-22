@@ -70,8 +70,10 @@ def data_analysis():
         st.dataframe(pd.DataFrame(data))
 
     st.title("Analysis Insights") 
-    st.write("""1) The mean energy of both particles is modulated by the Run type. 
-            Notably, the maximum mean energy is achieved when two particles possessing disparate charges are involved.""")
+    st.write("1) **The mean energy of both particles is modulated by the Run type.**")
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>Notably, the maximum mean energy is achieved when two particles possessing 
+                disparate charges are involved.</p>""", unsafe_allow_html=True)
+            
     
     st.image("PowerBI/MeanEnergy_v_Event_-1v1.png")
     st.markdown("<p style='color:gray; font-size: 12px; text-align: right'>Distribution of mean energy by run for different charged particles</h3>", unsafe_allow_html=True)
@@ -79,32 +81,35 @@ def data_analysis():
     st.image("PowerBI/MeanEnergy_v_Event_1v1.png")
     st.markdown("<p style='color:gray; font-size: 12px; text-align: right'>Distribution of mean energy by run for same charged particles</h3>", unsafe_allow_html=True)
 
-    st.write("""2) The pseudorapidity approaches zero as the energy reaches its minimum. 
-            In contrast, maximum energy is attained at pseudorapidity values of ±2.5. 
-            This indicates a significant dependence of energy on pseudorapidity.""") 
+    st.write("2) **The pseudorapidity approaches zero as the energy reaches its minimum.**") 
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>In contrast, maximum energy is attained at pseudorapidity values of ±2.5. 
+            This indicates a significant dependence of energy on pseudorapidity.</p>""", unsafe_allow_html=True) 
+            
     
     st.image("PowerBI/E_v_pseudorapidity.png")
 
-    st.write("""3) pz1 has a strong correlation with pseudorapidity while px and py doesn´t. 
-        The reason of this is due to the fact that pseudorapidity depends on the angle theta. As we see below:""")
+    st.write("3) **pz1 has a strong correlation with pseudorapidity while px and py doesn´t.**")
+    st.markdown("""<p style='font-size: 16px; text-align: justify'><p style='font-size: 16px; text-align: justify'>The reason of this is due to the fact that pseudorapidity depends on the angle theta. As we see below:</p>""", unsafe_allow_html=True)
     st.latex(r'''\eta = -\ln\left(\tan\left(\frac{\theta}{2}\right)\right)''')
     st.image("PowerBI/pxpypz_v_pseudorapidity.png")
 
 
-    st.write("Theta is the angle between the z-axis and the beam direction.")
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>Theta is the angle between the z-axis and the beam direction.</p>""", unsafe_allow_html=True)
     st.image("pictures/theta_angle.png")
-    st.markdown("""<p style='font-size: 18px; text-align: justify'>In a range from 0 to 90 degrees to theta, the value of pseudorapidity 
-                decreases as we increase the value of theta.</p>""", unsafe_allow_html=True)
-    st.markdown("""<p style='font-size: 18px; text-align: justify'>When pseudorapidity tends to 0 is because theta is 90º (or pi rads), 
-                which implies the particle is moving perpendicular to the z-axis.</p>""", unsafe_allow_html=True)
+    st.write("In a range from 0 to 90 degrees to theta, the value of pseudorapidity decreases as we increase the value of theta.")
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>When pseudorapidity tends to 0 is because theta is 90º (or pi rads), 
+                which implies the particle is moving perpendicular to the z-axis. </p>""", unsafe_allow_html=True)
 
 
-    st.markdown("""<p style='font-size: 18px; text-align: justify'>4) Invariant mass and Energy follow a pattern. It seems the Total Energy can´t be lower than the Invariant Mass.
-            According to the principles of special relativity E >= M.
+    st.write("4) **Invariant mass and Energy follow a pattern.**")
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>It seems the Total Energy can´t be lower than the Invariant Mass.
+            According to the principles of special relativity E >= M. <br>
             Further analysis indicates that when the invariant mass is high and the charges of the colliding particles differ 
             (i.e., one is positively charged and the other is negatively charged), it is more probable that the outcomes of such experiments will yield particles 
-            of different charges.</p>""", unsafe_allow_html=True)
+            of different charges. </p>""", unsafe_allow_html=True)
+    st.image("PowerBI/TotalEnergy_v_m.png")
 
+             
 
 
 
