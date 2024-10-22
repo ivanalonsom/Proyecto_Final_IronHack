@@ -34,6 +34,8 @@ def intro():
 
 
 def data_analysis():
+    st.title("Data Analysis")
+
     st.write("""We need to analyse the data to understand how the various components of a particle influence each other during a collision with another particle. 
             The full Data Analysis can be found in the PowerBI attached to this project in GitHub, but we are going to talk about the insights we found in this report.""")
     st.markdown("""<p style='color:gray; font-size: 14px; text-align: justify'>We are dealing with a set of experimental data, so instead of removing any outliers, 
@@ -110,6 +112,28 @@ def data_analysis():
     st.image("PowerBI/TotalEnergy_v_m.png")
 
              
+def data_science():
+    st.title("Data Science")
+
+    st.markdown("""
+    ## Introduction to Our Data Science Approach
+    <p style='font-size: 16px; text-align: justify'>
+    In the initial phase of our project, we aimed to predict the invariant mass (M) of two colliding particles based on several parameters, specifically the total energy \( E \), 
+    as well as the momentum components (p_x), (p_y), and (p_z).  
+    However, upon further investigation, we discovered that there are existing equations capable of calculating the theoretical value of (M) with greater accuracy than any prediction model.  
+    <p style='font-size: 16px; text-align: justify'>
+    Additionally, our initial approach faced another challenge: the requirement for experimental data from a collision to calculate (M). 
+    If the experiment had already been conducted, the necessity of employing machine learning for this calculation was called into question.  
+    <p style='font-size: 16px; text-align: justify'>
+    Recognizing the need for a more innovative approach, we redefined our objective to predict the invariant mass (M) while minimizing reliance on experimental variables, 
+    focusing exclusively on (p_z). This decision was motivated by the desire to simplify the prediction model while ensuring its effectiveness. 
+    By concentrating solely on (p_z), we aimed to enhance the interpretability of our model and potentially uncover new insights into the relationship between momentum and invariant mass. 
+    The purpose of this methodology was to explore the possibility of substituting certain experimental processes with machine learning techniques, ultimately saving both time and resources.
+    <p style='font-size: 16px; text-align: justify'>
+    This streamlined approach not only distinguished our work from prior studies but also established a foundation for a more profound exploration of the underlying physics governing particle collisions.
+    </p>""", unsafe_allow_html=True)
+
+    st.markdown("""<h2>Machine Learning Models</h2>""", unsafe_allow_html=True)
 
 
 
@@ -120,57 +144,57 @@ def data_analysis():
 
 
 
-def deep_learning():
+# def deep_learning():
 
-    st.write("RF:")
+#     st.write("RF:")
 
-    code = """
-        df_total_predict_202021 = df_total_values_PCA.copy()
+#     code = """
+#         df_total_predict_202021 = df_total_values_PCA.copy()
 
-    future_years = [2020, 2021]
+#     future_years = [2020, 2021]
 
-    for year in future_years:
+#     for year in future_years:
 
-    #Drop PCA var
-    df_total_predict_202021 = df_total_predict_202021.drop(columns=['Values_year_PCA'], errors='ignore')
+#     #Drop PCA var
+#     df_total_predict_202021 = df_total_predict_202021.drop(columns=['Values_year_PCA'], errors='ignore')
 
-    #Recalculate year_minus
-    df_total_predict_202021 = get_previous_years(df_total_predict_202021)
+#     #Recalculate year_minus
+#     df_total_predict_202021 = get_previous_years(df_total_predict_202021)
 
-    #Apply PCA
-    df_total_predict_202021 = apply_pca(df_total_predict_202021, columns_pca)
+#     #Apply PCA
+#     df_total_predict_202021 = apply_pca(df_total_predict_202021, columns_pca)
 
-    #Predict next year
-    X_year = df_total_predict_202021[df_total_predict_202021['year'] == year - 1][features_nn]
-    y_pred_year = best_rf_model.predict(X_year)
+#     #Predict next year
+#     X_year = df_total_predict_202021[df_total_predict_202021['year'] == year - 1][features_nn]
+#     y_pred_year = best_rf_model.predict(X_year)
 
-    new_year_df = df_total_predict_202021[df_total_predict_202021['year'] == year - 1].copy()
-    new_year_df['year'] = year
-    new_year_df['value'] = y_pred_year
+#     new_year_df = df_total_predict_202021[df_total_predict_202021['year'] == year - 1].copy()
+#     new_year_df['year'] = year
+#     new_year_df['value'] = y_pred_year
 
-    df_total_predict_202021 = pd.concat([df_total_predict_202021, new_year_df], ignore_index=True)
+#     df_total_predict_202021 = pd.concat([df_total_predict_202021, new_year_df], ignore_index=True)
 
-    y_year = df_total_values[df_total_values['year'] == year]['value']
-    """
+#     y_year = df_total_values[df_total_values['year'] == year]['value']
+#     """
 
-    st.code(code, language='python')
-
-
-    if 'show_df' not in st.session_state:
-        st.session_state.show_df = True
-
-    if st.session_state.show_df:
-        df_predicted = pd.read_csv('data/df_201321_with_202021_predicted.csv')
-        st.write("The dataframes after the treatment and prediction has been performed:")
-        st.write(df_predicted)
+#     st.code(code, language='python')
 
 
-def conclusions():
-    st.write("The obtained score for Random Forest is:")
-    st.code("Mean Absolute Error (MAE): 1033.0388923532064 \nRoot Mean Squared Error (RMSE): 4707.907926358289 \nR² Score: 0.9896681902859178")
+#     if 'show_df' not in st.session_state:
+#         st.session_state.show_df = True
 
-    st.write("Real data from INE vs Calculated and predicted data:")
-    st.image("data/real_v_pred.jpg", use_column_width=True)
+#     if st.session_state.show_df:
+#         df_predicted = pd.read_csv('data/df_201321_with_202021_predicted.csv')
+#         st.write("The dataframes after the treatment and prediction has been performed:")
+#         st.write(df_predicted)
+
+
+# def conclusions():
+#     st.write("The obtained score for Random Forest is:")
+#     st.code("Mean Absolute Error (MAE): 1033.0388923532064 \nRoot Mean Squared Error (RMSE): 4707.907926358289 \nR² Score: 0.9896681902859178")
+
+#     st.write("Real data from INE vs Calculated and predicted data:")
+#     st.image("data/real_v_pred.jpg", use_column_width=True)
 
     
 
@@ -178,7 +202,7 @@ def conclusions():
 
 
 st.sidebar.title("Navegation")
-page = st.sidebar.selectbox("Select a page", ["Introduction", "Data Analysis", "Deep Learning", "Insights and conclusions"]) 
+page = st.sidebar.selectbox("Select a page", ["Introduction", "Data Analysis", "Data Science", "Insights and conclusions"]) 
 st.sidebar.markdown("<br>" * 20, unsafe_allow_html=True)
 st.sidebar.markdown("""  
                 ## This project has been developed by:
@@ -189,10 +213,10 @@ if page == "Introduction":
     intro()
 elif page == "Data Analysis":
     data_analysis()
-elif page == 'Deep Learning':
-    deep_learning()
-elif page == 'Insights and conclusions':
-    conclusions()
+elif page == 'Data Science':
+    data_science()
+# elif page == 'Insights and conclusions':
+#     conclusions()
 
 
 
