@@ -138,15 +138,150 @@ def data_science():
     This streamlined approach not only distinguished our work from prior studies but also established a foundation for a more profound exploration of the underlying physics governing particle collisions.
     </p>""", unsafe_allow_html=True)
 
-    st.markdown("""<h2>Machine Learning Models</h2>""", unsafe_allow_html=True)
+    st.markdown("""<h2>Machine Learning Models Perfomance</h2>""", unsafe_allow_html=True)
+
+    st.markdown("""We tried different models of Machine Learning, getting the following results:""", unsafe_allow_html=True)
+    
+    norm_models = {
+            "Model": ["KNN", "Linear Regression", "Decision Tree", "Random Forest", "SVR", 'XGBoost'],
+            "MAE": [
+                10.4085,
+                19.2581,
+                12.6343, 
+                9.6463,
+                17.6996,
+                9.1662
+            ],
+            "MSE" : [
+                16.5322,
+                24.8982,
+                21.4528,
+                15.7044,
+                26.0569,
+                14.9891
+
+            ],
+            "R2" : [
+                0.5712,
+                0.0274,
+                0.2780,
+                0.6131,
+                -0.0652,
+                0.6475
+            ]
+        } 
+    
+    standarized_models = pd.DataFrame(norm_models)
+    formatted_df_norm = standarized_models.applymap(lambda x: f"{x:.4f}" if isinstance(x, (int, float)) else x)
+
+    standarized_models = {
+            "Model": ["KNN", "Linear Regression", "Decision Tree", "Random Forest", "SVR", "XGBoost"],
+            "MAE": [
+                10.3297,
+                19.2581,
+                12.6156, 
+                9.6485,
+                19.9789,
+                9.1786
+            ],
+            "MSE" : [
+                16.4559,
+                24.8983,
+                21.4225,
+                15.7095,
+                19.9789,
+                14.9921
+
+            ],
+            "R2" : [
+                0.5752,
+                0.0274,
+                0.2800,
+                0.6128,
+                0.3738,
+                0.6474
+            ]
+        } 
+    
+    standarized_models = pd.DataFrame(standarized_models)
+    formatted_df_standarized = standarized_models.applymap(lambda x: f"{x:.4f}" if isinstance(x, (int, float)) else x)
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("### Normalized Models")
+        st.dataframe(formatted_df_norm)
+
+    with col2:
+        st.markdown("### Standarized Models")
+        st.dataframe(formatted_df_standarized)
+    
+
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>As can be observe, the standardized and normalized models yielded similar results for the models with the highest R2 values.</h2>""", unsafe_allow_html=True)
+
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>Based on the data we obtained, we decided to attempt hyperparameter tuning using Random Forest and XGBoost Models.</h2>""", unsafe_allow_html=True)
+
+    col3, col4 = st.columns(2)
+    with col3:
+        rf_hyperparameters = {
+            'n_estimators': [50, 100, 200, 300, 400, 500],
+            'max_depth': [None, 10, 20, 30, 40, 50],
+            'min_samples_split': [2, 5, 10],
+            'min_samples_leaf': [1, 2, 4],
+            'max_features': ['auto', 'sqrt', 'log2'],
+            'bootstrap': [True, False],
+            'criterion': ['absolute_error', 'friedman_mse', 'poisson', 'squared_error']
+        }
+
+        df_rf_hyper_param = pd.DataFrame({
+            'Parámetro': list(rf_hyperparameters.keys()),
+            'Valores': [', '.join(map(str, valores)) for valores in rf_hyperparameters.values()]
+        })
+
+        if 'show_rf_hyper' not in st.session_state:
+            st.session_state.show_rf_hyper = False
 
 
+        if st.button("Show/Hide Random Forest Hyper-Parameters"):
+            st.session_state.show_rf_hyper = not st.session_state.show_rf_hyper  # Cambiar el estado
 
 
+        if st.session_state.show_rf_hyper:
+            st.table(df_rf_hyper_param)
+
+    with col4:
+        xgboost_hyperparameters = {
+            'n_estimators': [100, 200, 300, 400, 500],           
+            'max_depth': [3, 5, 7, 9, 11],                      
+            'learning_rate': [0.01, 0.05, 0.1, 0.2, 0.3],       
+            'subsample': [0.6, 0.8, 1.0],                       
+            'colsample_bytree': [0.6, 0.8, 1.0],                
+            'gamma': [0, 0.1, 0.2, 0.3],                     
+            'reg_alpha': [0, 0.1, 1, 10],                        
+            'reg_lambda': [0, 0.1, 1, 10]   
+        }
+
+        df_xgboost_hyper_param = pd.DataFrame({
+            'Parámetro': list(xgboost_hyperparameters.keys()),
+            'Valores': [', '.join(map(str, valores)) for valores in xgboost_hyperparameters.values()]
+        })
+
+        if 'show_xgboost_hyper' not in st.session_state:
+            st.session_state.show_xgboost_hyper = False
 
 
+        if st.button("Show/Hide XGBoost Hyper-Parameters"):
+            st.session_state.show_xgboost_hyper = not st.session_state.show_xgboost_hyper  # Cambiar el estado
 
 
+        if st.session_state.show_xgboost_hyper:
+            st.table(df_xgboost_hyper_param)
+
+
+    st.markdown("""
+    Using these parameters, the XGBoost model achieved an R² value of ***0.6490*** during cross-validation. 
+    Given the complexity of the subject matter we are predicting, this result is considered satisfactory. 
+    However, we aim to further improve our predictive accuracy. Therefore, we will proceed to explore the use of Neural Networks for this task.
+    """)
 
 
 # def deep_learning():
