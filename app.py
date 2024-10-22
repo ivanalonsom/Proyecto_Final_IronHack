@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def intro():
-    # st.image("data/demo_heath_map.png", use_column_width=True)
+    st.image("pictures/EjeZ.png", use_column_width=True)
 
     st.markdown("<style>h1 {text-align: justify;}</style>", unsafe_allow_html=True)
     st.title("Final Project - Predicting the Invariant Mass of Two-Particle Collisions Using One-Dimensional Vector Analysis") 
@@ -13,11 +13,14 @@ def intro():
                 This project involves a comprehensive data analysis to examine how the various components of a particle influence each other during a collision with another particle. 
                 By employing both machine learning and deep learning techniques, we aim to predict the invariant mass of the resulting system. This study not only enhances our 
                 understanding of the dynamics involved in particle collisions but also seeks to develop accurate predictive models with significant applications 
-                in the field of particle physics.</p>
+                in the field of particle physics. <br>
+                The motivation for undertaking this project stems from its significant importance in advancing scientific knowledge and the high costs associated with such 
+                research. As will be explained later, this study aims to construct a model capable of approximating the invariant mass of two particles without the need 
+                for all experimental data. Instead, the model will rely solely on the movement of the particle along the beam direction and the charge of each particle.</p>
         """, unsafe_allow_html=True)
     
     
-    st.markdown("<h3 style='color:gray; font-size: 18px'>Below is an example of the data taken from the CERN.</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color:gray; font-size: 18px'>Below is an preview example of the data taken from the CERN.</h3>", unsafe_allow_html=True)
     st.markdown("<h3 style='color:gray; font-size: 14px'>European Council for Nuclear Research. </h3>", unsafe_allow_html=True)
         
     if 'show_df' not in st.session_state:
@@ -28,6 +31,88 @@ def intro():
 
         st.write(df_no_treatment_demo)
         st.markdown("<p style='color:gray; font-size: 12px; text-align: right'>https://opendata.cern.ch/record/304.</h3>", unsafe_allow_html=True)
+
+
+def data_analysis():
+    st.write("""We need to analyse the data to understand how the various components of a particle influence each other during a collision with another particle. 
+            The full Data Analysis can be found in the PowerBI attached to this project in GitHub, but we are going to talk about the insights we found in this report.""")
+    st.markdown("""<p style='color:gray; font-size: 14px; text-align: justify'>We are dealing with a set of experimental data, so instead of removing any outliers, 
+                we will add a boolean column to indicate whether or not each data point is an outlier.""", unsafe_allow_html=True)
+
+    st.title("Variables and Meaning")
+
+    # Usar session_state para mantener el estado
+    if 'show_message' not in st.session_state:
+        st.session_state.show_message = False
+
+    # Crear un botón que alterna el estado
+    if st.button("Show/Hide"):
+        st.session_state.show_message = not st.session_state.show_message  # Cambiar el estado
+
+    # Mostrar u ocultar el mensaje según el estado
+    if st.session_state.show_message:
+        data = {
+            "Variable": ["Run", "Event", "E", "px", "py", "pz", "pt", "eta", "phi", "Q", "M"],
+            "Description": [
+                "The run number of the event.",
+                "The event number.",
+                "The total energy of the electron (GeV).",
+                "The x-component of the electron's momentum (GeV).",
+                "The y-component of the electron's momentum (GeV).",
+                "The z-component of the electron's momentum (GeV).",
+                "The transverse momentum of the electron (GeV).",
+                "The pseudorapidity of the electron.",
+                "The phi angle of the electron (rad).",
+                "The charge of the electron.",
+                "The invariant mass of two electrons (GeV)."
+            ]
+        } 
+        st.dataframe(pd.DataFrame(data))
+
+    st.title("Analysis Insights") 
+    st.write("""1) The mean energy of both particles is modulated by the Run type. 
+            Notably, the maximum mean energy is achieved when two particles possessing disparate charges are involved.""")
+    
+    st.image("PowerBI/MeanEnergy_v_Event_-1v1.png")
+    st.markdown("<p style='color:gray; font-size: 12px; text-align: right'>Distribution of mean energy by run for different charged particles</h3>", unsafe_allow_html=True)
+
+    st.image("PowerBI/MeanEnergy_v_Event_1v1.png")
+    st.markdown("<p style='color:gray; font-size: 12px; text-align: right'>Distribution of mean energy by run for same charged particles</h3>", unsafe_allow_html=True)
+
+    st.write("""2) The pseudorapidity approaches zero as the energy reaches its minimum. 
+            In contrast, maximum energy is attained at pseudorapidity values of ±2.5. 
+            This indicates a significant dependence of energy on pseudorapidity.""") 
+    
+    st.image("PowerBI/E_v_pseudorapidity.png")
+
+    st.write("""3) pz1 has a strong correlation with pseudorapidity while px and py doesn´t. 
+        The reason of this is due to the fact that pseudorapidity depends on the angle theta. As we see below:""")
+    st.latex(r'''\eta = -\ln\left(\tan\left(\frac{\theta}{2}\right)\right)''')
+    st.image("PowerBI/pxpypz_v_pseudorapidity.png")
+
+
+    st.write("Theta is the angle between the z-axis and the beam direction.")
+    st.image("pictures/theta_angle.png")
+    st.markdown("""<p style='font-size: 18px; text-align: justify'>In a range from 0 to 90 degrees to theta, the value of pseudorapidity 
+                decreases as we increase the value of theta.</p>""", unsafe_allow_html=True)
+    st.markdown("""<p style='font-size: 18px; text-align: justify'>When pseudorapidity tends to 0 is because theta is 90º (or pi rads), 
+                which implies the particle is moving perpendicular to the z-axis.</p>""", unsafe_allow_html=True)
+
+
+    st.markdown("""<p style='font-size: 18px; text-align: justify'>4) Invariant mass and Energy follow a pattern. It seems the Total Energy can´t be lower than the Invariant Mass.
+            According to the principles of special relativity E >= M.
+            Further analysis indicates that when the invariant mass is high and the charges of the colliding particles differ 
+            (i.e., one is positively charged and the other is negatively charged), it is more probable that the outcomes of such experiments will yield particles 
+            of different charges.</p>""", unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
 
 
 def deep_learning():
@@ -88,7 +173,7 @@ def conclusions():
 
 
 st.sidebar.title("Navegation")
-page = st.sidebar.selectbox("Select a page", ["Introduction", "Deep Learning", "Insights and conclusions"]) 
+page = st.sidebar.selectbox("Select a page", ["Introduction", "Data Analysis", "Deep Learning", "Insights and conclusions"]) 
 st.sidebar.markdown("<br>" * 20, unsafe_allow_html=True)
 st.sidebar.markdown("""  
                 ## This project has been developed by:
@@ -97,6 +182,8 @@ st.sidebar.markdown("""
 
 if page == "Introduction":
     intro()
+elif page == "Data Analysis":
+    data_analysis()
 elif page == 'Deep Learning':
     deep_learning()
 elif page == 'Insights and conclusions':
