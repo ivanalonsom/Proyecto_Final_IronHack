@@ -8,3 +8,4 @@ plotly_express
 xlrd==2.0.1
 streamlit==1.22.0
 scikit-learn==1.4.2 
+xgboost==2.1.1
