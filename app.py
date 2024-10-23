@@ -124,15 +124,15 @@ def data_science():
     ## Introduction to Our Data Science Approach
     <p style='font-size: 16px; text-align: justify'>
     In the initial phase of our project, we aimed to predict the invariant mass (M) of two colliding particles based on several parameters, specifically the total energy (E), 
-    as well as the momentum components (p_x), (p_y), and (p_z).  
+    as well as the momentum components (px), (py), and (pz).  
     However, upon further investigation, we discovered that there are existing equations capable of calculating the theoretical value of (M) with greater accuracy than any prediction model.  
     <p style='font-size: 16px; text-align: justify'>
     Additionally, our initial approach faced another challenge: the requirement for experimental data from a collision to calculate (M). 
     If the experiment had already been conducted, the necessity of employing machine learning for this calculation was called into question.  
     <p style='font-size: 16px; text-align: justify'>
     Recognizing the need for a more innovative approach, we redefined our objective to predict the invariant mass (M) while minimizing reliance on experimental variables, 
-    focusing exclusively on (p_z). This decision was motivated by the desire to simplify the prediction model while ensuring its effectiveness. 
-    By concentrating solely on (p_z), we aimed to enhance the interpretability of our model and potentially uncover new insights into the relationship between momentum and invariant mass. 
+    focusing exclusively on (pz). This decision was motivated by the desire to simplify the prediction model while ensuring its effectiveness. 
+    By concentrating solely on (pz), we aimed to enhance the interpretability of our model and potentially uncover new insights into the relationship between momentum and invariant mass. 
     The purpose of this methodology was to explore the possibility of substituting certain experimental processes with machine learning techniques, ultimately saving both time and resources.
     <p style='font-size: 16px; text-align: justify'>
     This streamlined approach not only distinguished our work from prior studies but also established a foundation for a more profound exploration of the underlying physics governing particle collisions.
@@ -278,69 +278,96 @@ def data_science():
 
 
     st.markdown("""
-    Using these parameters, the XGBoost model achieved an R² value of ***0.6490*** during cross-validation. 
+    Using these parameters, the XGBoost model achieved an `R² value of 0.6555` during cross-validation. 
     Given the complexity of the subject matter we are predicting, this result is considered satisfactory. 
     However, we aim to further improve our predictive accuracy. Therefore, we will proceed to explore the use of Neural Networks for this task.
     """)
 
+    st.markdown("""<h2>Neural Networks</h2>""", unsafe_allow_html=True)
 
-# def deep_learning():
-
-#     st.write("RF:")
-
-#     code = """
-#         df_total_predict_202021 = df_total_values_PCA.copy()
-
-#     future_years = [2020, 2021]
-
-#     for year in future_years:
-
-#     #Drop PCA var
-#     df_total_predict_202021 = df_total_predict_202021.drop(columns=['Values_year_PCA'], errors='ignore')
-
-#     #Recalculate year_minus
-#     df_total_predict_202021 = get_previous_years(df_total_predict_202021)
-
-#     #Apply PCA
-#     df_total_predict_202021 = apply_pca(df_total_predict_202021, columns_pca)
-
-#     #Predict next year
-#     X_year = df_total_predict_202021[df_total_predict_202021['year'] == year - 1][features_nn]
-#     y_pred_year = best_rf_model.predict(X_year)
-
-#     new_year_df = df_total_predict_202021[df_total_predict_202021['year'] == year - 1].copy()
-#     new_year_df['year'] = year
-#     new_year_df['value'] = y_pred_year
-
-#     df_total_predict_202021 = pd.concat([df_total_predict_202021, new_year_df], ignore_index=True)
-
-#     y_year = df_total_values[df_total_values['year'] == year]['value']
-#     """
-
-#     st.code(code, language='python')
+    st.markdown("""We utilized TensorFlow to explore the possibility of enhancing the model's performance.
+                Prior to being fed into the model, the data underwent standardization and conversion to `float32`. 
+                This conversion is essential because float32 operations are computationally faster than those involving `float64`.""")
 
 
-#     if 'show_df' not in st.session_state:
-#         st.session_state.show_df = True
+    st.write("falta")
 
-#     if st.session_state.show_df:
-#         df_predicted = pd.read_csv('data/df_201321_with_202021_predicted.csv')
-#         st.write("The dataframes after the treatment and prediction has been performed:")
-#         st.write(df_predicted)
+    
 
 
-# def conclusions():
-#     st.write("The obtained score for Random Forest is:")
-#     st.code("Mean Absolute Error (MAE): 1033.0388923532064 \nRoot Mean Squared Error (RMSE): 4707.907926358289 \nR² Score: 0.9896681902859178")
+def conclusions():
 
-#     st.write("Real data from INE vs Calculated and predicted data:")
-#     st.image("data/real_v_pred.jpg", use_column_width=True)
+    st.title("Machine Learning Conclusions")
+
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>
+                Due to the fact that we achieved almost the same results using both XGBoost and TensorFlow, we are opting to choose XGBoost as the best model 
+                for now because it is significantly faster. However, it is noteworthy that the best XGBoost hyperparameter configuration we found is slightly 
+                worse than the results from the random trials of the Neural Networks. Therefore, we are confident that with more time and optimization, 
+                we could achieve even better results.  <br>
+                <p style='font-size: 16px; text-align: justify'>
+                While an R² value of approximately 0.65 might initially appear suboptimal, it is important to consider that we are contending with the 
+                fundamental laws of physics. Achieving a prediction accuracy that can explain around 65% of the variance in such a complex domain is indeed 
+                a significant accomplishment. <br>  
+                <p style='font-size: 16px; text-align: justify'>
+                Given the potential financial and time-saving benefits that an even more accurate model could offer, we are committed to further enhancing 
+                our predictive accuracy in future iterations. </p>""", unsafe_allow_html=True)
+
+    st.markdown(
+        """
+        <div style="text-align: center;">
+            <img src="https://jun-makino.sakura.ne.jp/animations/sph/sph_col_rp0.5_nb512.gif" alt="Collision GIF">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )   
+
+
+
+def pruebaModelo():
+    import pandas as pd 
+    import numpy as np 
+    import pickle 
+    import streamlit as st 
+
+    st.title("Prueba de modelo")
+
+    pickle_in = open("xg_model_randomized_search.pkl", "rb")
+    xg_boost_model = pickle.load(pickle_in)
+
+    def prediction(run, pz1, pz2, is_same_charge, is_outlier):   
+   
+        prediction = xg_boost_model.predict( 
+            [[run, pz1, pz2, is_same_charge, is_outlier]]) 
+        # print(prediction) 
+        return prediction 
+    
+    df = pd.read_csv("dielectron.csv")
+
+    run_options = df["Run"].unique()
+
+
+    run = int(st.selectbox("Select the run(s)", run_options))
+    pz1 = float(st.text_input("Enter the pz of particle 1", "0"))
+    pz2 = float(st.text_input("Enter the pz of particle 2", "0"))
+
+    is_same_charge = st.checkbox("Do they have the same charge?")
+    is_outlier = st.checkbox("Is it an outlier?")
+
+
+    if st.button("Predict"): 
+        result = prediction(run, pz1, pz2, is_same_charge, is_outlier) 
+        st.success('The output is {}'.format(result)) 
+        
+
+
+
+
 
     
 
 
 st.sidebar.title("Navegation")
-page = st.sidebar.selectbox("Select a page", ["Introduction", "Data Analysis", "Data Science", "Insights and conclusions"]) 
+page = st.sidebar.selectbox("Select a page", ["Introduction", "Data Analysis", "Data Science", "Insights and conclusions", "prueba"]) 
 st.sidebar.markdown("<br>" * 16, unsafe_allow_html=True)
 st.sidebar.markdown("IronHack Final Project")
 st.sidebar.markdown("""  
@@ -354,8 +381,10 @@ elif page == "Data Analysis":
     data_analysis()
 elif page == 'Data Science':
     data_science()
-# elif page == 'Insights and conclusions':
-#     conclusions()
+elif page == 'Insights and conclusions':
+    conclusions()
+elif page == 'prueba':
+    pruebaModelo()
 
 
 
