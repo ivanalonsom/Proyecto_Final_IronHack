@@ -7,3 +7,4 @@ statsmodels==0.14.3
 plotly_express
 xlrd==2.0.1
 streamlit==1.22.0
+pickle
