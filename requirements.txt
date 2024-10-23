@@ -8,4 +8,4 @@ plotly_express
 xlrd==2.0.1
 streamlit==1.22.0
 tensorflow==2.6.0
-python_version==3.8.10
+python_version==3.12.4
