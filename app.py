@@ -292,8 +292,6 @@ def data_science():
 
     st.write("falta")
 
-    
-
 
 def conclusions():
 
@@ -322,14 +320,13 @@ def conclusions():
     )   
 
 
-
-def pruebaModelo():
+def experimental_framework():
     import pandas as pd 
     import numpy as np 
     import pickle 
     import streamlit as st 
 
-    st.title("Prueba de modelo")
+    st.title("Experimental Framework")
 
     pickle_in = open("xg_model_randomized_search.pkl", "rb")
     xg_boost_model = pickle.load(pickle_in)
@@ -353,39 +350,41 @@ def pruebaModelo():
     is_same_charge = st.checkbox("Do they have the same charge?")
     is_outlier = st.checkbox("Is it an outlier?")
 
-
     if st.button("Predict"): 
-        result = prediction(run, pz1, pz2, is_same_charge, is_outlier) 
-        st.success('The output is {}'.format(result)) 
+        with st.spinner("Making prediction..."):
+            try:
+                result = prediction(run, pz1, pz2, is_same_charge, is_outlier) 
+                st.success(f'The output is **{result[0]:.4f}**!')
+
+                # Display explosion effect with an image or GIF
+                st.image("https://cdn.dribbble.com/users/315053/screenshots/2390908/media/3a5775599ed9f2a352fef39362c0e346.gif", width=300)  # Adjust width as necessary
+                
+            except Exception as e:
+                st.error(f"An error occurred: {str(e)}")
         
 
+def main():
+    st.sidebar.title("Navegation")
+    page = st.sidebar.selectbox("Select a page", ["Introduction", "Data Analysis", "Data Science", "Insights and conclusions", "Experimental Framework"]) 
+    st.sidebar.markdown("<br>" * 16, unsafe_allow_html=True)
+    st.sidebar.markdown("IronHack Final Project")
+    st.sidebar.markdown("""  
+                    ## This project has been developed by:
+                    Iván Alonso - https://github.com/ivanalonsom  
+                    """)
+
+    if page == "Introduction":
+        intro()
+    elif page == "Data Analysis":
+        data_analysis()
+    elif page == 'Data Science':
+        data_science()
+    elif page == 'Insights and conclusions':
+        conclusions()
+    elif page == 'Experimental Framework':
+        experimental_framework()
 
 
-
-
-    
-
-
-st.sidebar.title("Navegation")
-page = st.sidebar.selectbox("Select a page", ["Introduction", "Data Analysis", "Data Science", "Insights and conclusions", "prueba"]) 
-st.sidebar.markdown("<br>" * 16, unsafe_allow_html=True)
-st.sidebar.markdown("IronHack Final Project")
-st.sidebar.markdown("""  
-                ## This project has been developed by:
-                Iván Alonso - https://github.com/ivanalonsom  
-                """)
-
-if page == "Introduction":
-    intro()
-elif page == "Data Analysis":
-    data_analysis()
-elif page == 'Data Science':
-    data_science()
-elif page == 'Insights and conclusions':
-    conclusions()
-elif page == 'prueba':
-    pruebaModelo()
-
-
-
+if __name__ == "__main__":
+    main()
 
