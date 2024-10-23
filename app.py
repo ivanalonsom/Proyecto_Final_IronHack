@@ -277,20 +277,69 @@ def data_science():
             st.table(df_xgboost_hyper_param)
 
 
-    st.markdown("""
-    Using these parameters, the XGBoost model achieved an `R² value of 0.6555` during cross-validation. 
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>
+    Using these parameters, the XGBoost model achieved an <span style='border: 1px solid; padding: 2px; color: green;'>R² value of 0.6555</span> during cross-validation. 
     Given the complexity of the subject matter we are predicting, this result is considered satisfactory. 
     However, we aim to further improve our predictive accuracy. Therefore, we will proceed to explore the use of Neural Networks for this task.
-    """)
+    </p>""", unsafe_allow_html=True) 
 
     st.markdown("""<h2>Neural Networks</h2>""", unsafe_allow_html=True)
 
-    st.markdown("""We utilized TensorFlow to explore the possibility of enhancing the model's performance.
-                Prior to being fed into the model, the data underwent standardization and conversion to `float32`. 
-                This conversion is essential because float32 operations are computationally faster than those involving `float64`.""")
+    st.markdown("""<p style='font-size: 16px; text-align: justify'>We utilized TensorFlow to explore the possibility of enhancing the model's performance.
+                Prior to being fed into the model, the data underwent standardization and conversion to <span style='border: 1px solid; padding: 2px; color: green;'>float32</span>. 
+                This conversion is essential because float32 operations are computationally faster than those involving <span style='border: 1px solid; padding: 2px; color: green;'>float64</span>. <br>
+                We used Keras and define a sequential model with multiple layers as we can see in the code below. </p>""", unsafe_allow_html=True)
 
 
-    st.write("falta")
+    code = """import pandas as pd
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import StandardScaler
+    import tensorflow as tf
+    from tensorflow.keras import layers, models, regularizers
+    from tensorflow.keras.callbacks import EarlyStopping
+    from sklearn.metrics import root_mean_squared_error, r2_score
+
+    # Parameters turn to TensorFlow
+    X_train_tf = X_train_scaled.astype('float32')
+    X_test_tf = X_test_scaled.astype('float32')
+    y_train_tf = y_train.astype('float32')
+    y_test_tf = y_test.astype('float32')
+
+    # Regression model build
+    model = models.Sequential()
+    model.add(layers.Dense(128, activation='relu', input_shape=(X_train.shape[1],), kernel_regularizer=regularizers.l2(0.01)))
+    model.add(layers.BatchNormalization())  # Añadir BatchNormalization
+    model.add(layers.Dropout(0.2))
+    model.add(layers.Dense(64, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
+    model.add(layers.BatchNormalization())  # Añadir BatchNormalization
+    model.add(layers.Dropout(0.2))
+    model.add(layers.Dense(32, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
+    model.add(layers.BatchNormalization())  # Añadir BatchNormalization
+    model.add(layers.Dropout(0.2))
+    model.add(layers.Dense(1))  # Capa de salida para regresión
+
+    # Model compilation
+    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0005), loss='mean_squared_error', metrics=['mae'])
+
+    #Early Stopping callback
+    # early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+
+    # Model Training
+    history = model.fit(X_train_tf, y_train_tf, epochs=10000, batch_size=1024, validation_data=(X_test_tf, y_test_tf))     #callbacks=[early_stopping]
+
+    # Evaluate the model
+    test_loss, test_mae = model.evaluate(X_test_tf, y_test_tf)
+    print('Test MAE:', test_mae)
+
+    # Predicts of test data
+    y_pred_tf = model.predict(X_test_tf)
+
+    # Additional metrics calculation
+    rmse = root_mean_squared_error(y_test_tf, y_pred_tf)
+    r2 = r2_score(y_test, y_pred_tf)
+"""
+
+    st.code(code, language='python')
 
 
 def conclusions():
