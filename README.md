@@ -10,6 +10,15 @@ The motivation for undertaking this project stems from its significant importanc
 
 The data used in this project is taken from CERN. For more details, visit the [CERN Open Data portal](https://opendata.cern.ch/record/304).
 
+## Link to Streamlit
+https://deep-learning-spain-crimen-study.streamlit.app/
+
+## Author
+
+| Name             | LinkedIn Profile | Brief Description |
+|----------------------------------|-------------------------------------------|-------------------------------------------|
+| Iván Alonso        |   [LinkedIn](https://www.linkedin.com/in/ivan-alonsom/)   | Data Analyst |
+
 ## Project Structure
 
 The project is structured as follows:
@@ -19,6 +28,11 @@ The project is structured as follows:
 - **Data Science**: Machine learning models used for predicting invariant mass and their performances.
 - **Insights and Conclusions**: Key conclusions drawn from the analysis and model performance.
 - **Experimental Framework**: User interface for making predictions based on input parameters.
+
+## Important Files in This Repository
+
+1. main.ipynb: The Jupyter Notebook that includes all the analysis steps, data visualization, machine learning model training, and insights derived from the dataset. It orchestrates the use of other files, processing the data and displaying the results.
+
 
 ## Technologies Used
 
