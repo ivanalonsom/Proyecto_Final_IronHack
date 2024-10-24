@@ -34,7 +34,7 @@ def intro():
 
 
     st.write("The data is stored in a DataBase (MySQL) we have created")
-    st.image("Database/Relational.png")
+    st.image("database/Relational.png")
 
 
 
@@ -377,7 +377,7 @@ def experimental_framework():
 
     st.title("Experimental Framework")
 
-    pickle_in = open("xg_model_randomized_search.pkl", "rb")
+    pickle_in = open("models/xg_model_randomized_search.pkl", "rb")
     xg_boost_model = pickle.load(pickle_in)
 
     def prediction(run, pz1, pz2, is_same_charge, is_outlier):   
@@ -398,7 +398,7 @@ def experimental_framework():
     is_same_charge = st.checkbox("Do they have the same charge?")
     is_outlier = st.checkbox("Is it an outlier?")
 
-    pickle_in = open("data_scaler.pkl", "rb")
+    pickle_in = open("models/data_scaler.pkl", "rb")
     data_scaler = pickle.load(pickle_in)
 
     # df_sc = pd.DataFrame
