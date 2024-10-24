@@ -26,7 +26,7 @@ The project is structured as follows:
 - **Streamlit**: For building the web application interface.
 - **Pandas**: For data manipulation and analysis.
 - **Matplotlib/Seaborn**: For data visualization.
-- **Machine Learning Libraries**: Such as XGBoost and TensorFlow for predictive modeling.
+- **Machine Learning Libraries**: Such as sklearn and TensorFlow for predictive modeling.
 
 ## How to Run the Application
 

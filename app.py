@@ -387,7 +387,7 @@ def experimental_framework():
         # print(prediction) 
         return prediction 
     
-    df = pd.read_csv("dielectron.csv")
+    df = pd.read_csv("data/dielectron_cleaned.csv")
 
     run_options = df["Run"].unique()
 
@@ -395,9 +395,28 @@ def experimental_framework():
     run = int(st.selectbox("Select the run(s)", run_options))
     pz1 = float(st.text_input("Enter the pz of particle 1", "0"))
     pz2 = float(st.text_input("Enter the pz of particle 2", "0"))
-
     is_same_charge = st.checkbox("Do they have the same charge?")
     is_outlier = st.checkbox("Is it an outlier?")
+
+    pickle_in = open("data_scaler.pkl", "rb")
+    data_scaler = pickle.load(pickle_in)
+
+    # df_sc = pd.DataFrame
+    todo_np = np.array([[run, pz1, pz2, is_same_charge, is_outlier]])
+    todo = data_scaler.transform(todo_np)
+
+    todo_Df = pd.DataFrame(todo, columns = ["Run", "pz1", "pz2", "is_same_charge", "is_outlier"])  
+
+    run = todo_Df["Run"].values[0]
+
+    pz1 = todo_Df["pz1"].values[0]
+
+    pz2 = todo_Df["pz2"].values[0]
+
+    is_same_charge = todo_Df["is_same_charge"].values[0]
+
+    is_outlier = todo_Df["is_outlier"].values[0]
+
 
     if st.button("Predict"): 
         with st.spinner("Making prediction..."):
@@ -407,7 +426,7 @@ def experimental_framework():
 
                 # Display explosion effect with an image or GIF
                 st.image("https://cdn.dribbble.com/users/315053/screenshots/2390908/media/3a5775599ed9f2a352fef39362c0e346.gif", width=300)  # Adjust width as necessary
-                
+                # st.write(run)    
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
         
