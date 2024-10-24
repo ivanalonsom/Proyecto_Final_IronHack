@@ -1,24 +1,93 @@
 def remove_duplicates(df):
+    """
+    This function takes a pandas DataFrame as input and returns a new DataFrame with duplicate rows removed.
+
+    Parameters
+    ----------
+    df : pandas DataFrame
+        The DataFrame to be cleaned.
+
+    Returns
+    -------
+    cleaned_df : pandas DataFrame
+        The DataFrame after removing duplicates.
+    """
     return df.drop_duplicates()
 
 
 def get_lowercase_cols(df):
+    """
+    This function takes a pandas DataFrame as input and returns a new DataFrame with all column names in lower case.
+
+    Parameters
+    ----------
+    df : pandas DataFrame
+        The DataFrame to be cleaned.
+
+    Returns
+    -------
+    cleaned_df : pandas DataFrame
+        The DataFrame with all column names in lower case.
+    """
     df.columns = df.columns.str.lower()
     return df
 
 
 
 def get_column_charge(df):
+    """
+    This function takes a pandas DataFrame as input and adds a new column named "is_same_charge". This column will be a boolean indicating whether the charges of the two particles are the same or not.
+
+    Parameters
+    ----------
+    df : pandas DataFrame
+        The DataFrame to be cleaned.
+
+    Returns
+    -------
+    cleaned_df : pandas DataFrame
+        The DataFrame with a new column named "is_same_charge".
+    """
     df["is_same_charge"] = df["Q1"] == df["Q2"]
     return df
 
 
 def mark_outliers(df):
+    """
+    This function takes a pandas DataFrame as input and marks outliers in all columns except "Event", "is_same_charge", and "is_outlier" by setting the "is_outlier" column to True for outliers and False otherwise.
+
+    Parameters
+    ----------
+    df : pandas DataFrame
+        The DataFrame to be cleaned.
+
+    Returns
+    -------
+    cleaned_df : pandas DataFrame
+        The DataFrame with outliers marked.
+    """
     import pandas as pd
 
     df["is_outlier"] = False
 
     def tukeys_test_outliers(data):
+        """
+        Identify outliers in a pandas Series using Tukey's method.
+
+        This function calculates the first quartile (Q1), third quartile (Q3), 
+        and the interquartile range (IQR) of the data. Outliers are defined as 
+        data points that are below Q1 - 1.5 * IQR or above Q3 + 1.5 * IQR.
+
+        Parameters
+        ----------
+        data : pandas Series
+            The data for which outliers need to be identified.
+
+        Returns
+        -------
+        pandas Series
+            A Series containing the outliers in the data.
+        """
         Q1 = data.quantile(0.25)
         Q3 = data.quantile(0.75)
         IQR = Q3 - Q1
@@ -40,6 +109,23 @@ def mark_outliers(df):
 
 
 def main_cleaning(df):
+    """
+    This function takes a pandas DataFrame as input and performs the following operations on it:
+        1. Removes duplicate rows from the DataFrame.
+        2. Converts all column names to lower case.
+        3. Adds a new column named "is_same_charge". This column will be a boolean indicating whether the charges of the two particles are the same or not.
+        4. Marks outliers in all columns except "Event", "is_same_charge", and "is_outlier" by setting the "is_outlier" column to True for outliers and False otherwise.
+
+    Parameters
+    ----------
+    df : pandas DataFrame
+        The DataFrame to be cleaned.
+
+    Returns
+    -------
+    cleaned_df : pandas DataFrame
+        The DataFrame after performing the above operations.
+    """
     df = remove_duplicates(df)
     #get_lowercase_cols(df)
     get_column_charge(df)
@@ -80,6 +166,15 @@ def import_to_sql(df, name):
 
 
 def make_query(query):
+    """
+    This function makes a query to a SQL database and returns the result.
+    
+    Parameters:
+        query (str): The query to be executed.
+    
+    Returns:
+        query_result (DataFrame): The result of the query.
+    """
     import pandas as pd
     from sqlalchemy import create_engine
     import os
